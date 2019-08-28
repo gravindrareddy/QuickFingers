@@ -8,21 +8,26 @@ main() {
   runApp(MaterialApp(
     home: Scaffold(
       appBar: AppBar(title: Text("Quick Fingers")),
-      body: ShapeWidget(),
+      body: QuickFingersGameWidget(),
     ),
   ));
 }
 
-class ShapeWidget extends StatefulWidget {
+/**
+ * The primary Widget of the app that holds the game
+ */
+class QuickFingersGameWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _ShapeWidgetState();
+    return _QuickFingersGameWidgetState();
   }
 }
 
-class _ShapeWidgetState extends State<ShapeWidget> {
-  //Static variables to hold colors permanently
+/**
+ * This is the Widget State which will define the dynamic nature of the Stateful Widget
+ */
+class _QuickFingersGameWidgetState extends State<QuickFingersGameWidget> {
+  // Static variables to hold colors permanently
   static var containerOneOriginalColor = Colors.red;
   static var containerTwoOriginalColor = Colors.green;
   static var containerThreeOriginalColor = Colors.blue;
@@ -30,6 +35,8 @@ class _ShapeWidgetState extends State<ShapeWidget> {
   static var containerFiveOriginalColor = Colors.orange;
   static var containerSixOriginalColor = Colors.purple;
   static var containerSevenOriginalColor = Colors.brown;
+
+  // Array that holds multiple colors
   static var colorsList = [
     Colors.yellow,
     Colors.grey,
@@ -40,9 +47,12 @@ class _ShapeWidgetState extends State<ShapeWidget> {
     Colors.cyan
   ];
 
+  // This holds the random color picked by system and it is the base color to be matched while playing the game
   var baseColorToMatchAndPlay;
+
   int pointsScored = 0;
 
+  // These variables holds the current color filled in the containers. On the user tap, as color changes, the content of these variables also changes
   var containerOneColor = containerOneOriginalColor;
   var containerTwoColor = containerTwoOriginalColor;
   var containerThreeColor = containerThreeOriginalColor;
@@ -51,18 +61,17 @@ class _ShapeWidgetState extends State<ShapeWidget> {
   var containerSixColor = containerSixOriginalColor;
   var containerSevenColor = containerSevenOriginalColor;
 
+  // Configurable variable that holds the total time to play the game
   int totalTimeToPlayGame = 10;
 
-  //Timer timer;
-
+  // placeholder string (ideally, it should be in the resource file)
   String timerCountDown = "timer";
+
   Icon playOrResetIcon;
 
-//  static int randomNumb() {
-//    final ary = new Random().nextInt(7);
-//    return ary;
-//  }
-
+  /**
+   * Mandatory method of Widget State which holds the whole widget dynamic behavior. Note that this method returns a Widget
+   */
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -267,12 +276,18 @@ class _ShapeWidgetState extends State<ShapeWidget> {
     });
   }
 
+  /**
+   * This function is part of the lifecycle and executes only once
+   */
   void initState() {
     super.initState();
     baseColorToMatchAndPlay = colorsList[Random().nextInt(7)];
     playOrResetIcon = Icon(Icons.play_arrow);
   }
 
+  /**
+   * As the color matches, counter will update the user score
+   */
   void userPointsCounter(MaterialColor colorPickedByUser) {
     print("Inside userPointsCounter:1");
     if (colorPickedByUser == baseColorToMatchAndPlay) {
@@ -282,6 +297,9 @@ class _ShapeWidgetState extends State<ShapeWidget> {
     }
   }
 
+  /**
+   * As the game ends, this method will be triggered to reset all the required variables
+   */
   void resetCounter() {
     totalTimeToPlayGame = 10; // Reset timer to max
     pointsScored = 0; // Reset points to 0
