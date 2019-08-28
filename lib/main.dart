@@ -111,6 +111,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
                 setState(() {
                   containerTwoColor = colorsList[Random().nextInt(7)];
                 });
+                userPointsCounter(containerTwoColor);
               },
               onDoubleTap: () {
                 setState(() {
@@ -129,6 +130,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
                 setState(() {
                   containerThreeColor = colorsList[Random().nextInt(7)];
                 });
+                userPointsCounter(containerThreeColor);
               },
               onDoubleTap: () {
                 setState(() {
@@ -149,6 +151,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
             setState(() {
               containerFourColor = colorsList[Random().nextInt(7)];
             });
+            userPointsCounter(containerFourColor);
           },
           onDoubleTap: () {
             setState(() {
@@ -169,6 +172,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
                 setState(() {
                   containerFiveColor = colorsList[Random().nextInt(7)];
                 });
+                userPointsCounter(containerFiveColor);
               },
               onDoubleTap: () {
                 setState(() {
@@ -187,6 +191,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
                 setState(() {
                   containerSixColor = colorsList[Random().nextInt(7)];
                 });
+                userPointsCounter(containerSixColor);
               },
               onDoubleTap: () {
                 setState(() {
@@ -205,6 +210,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
                 setState(() {
                   containerSevenColor = colorsList[Random().nextInt(7)];
                 });
+                userPointsCounter(containerSevenColor);
               },
               onDoubleTap: () {
                 setState(() {
@@ -247,8 +253,6 @@ class _ShapeWidgetState extends State<ShapeWidget> {
         totalTimeToPlayGame = totalTimeToPlayGame - 1;
         if (totalTimeToPlayGame < 0) {
           timer.cancel();
-          resetCounter();
-          
           Fluttertoast.showToast(
               msg: "Your score: $pointsScored",
               toastLength: Toast.LENGTH_SHORT,
@@ -257,6 +261,7 @@ class _ShapeWidgetState extends State<ShapeWidget> {
               backgroundColor: Colors.red,
               textColor: Colors.white,
               fontSize: 16.0);
+          resetCounter();
         }
       });
     });
@@ -269,8 +274,10 @@ class _ShapeWidgetState extends State<ShapeWidget> {
   }
 
   void userPointsCounter(MaterialColor colorPickedByUser) {
+    print("Inside userPointsCounter:1");
     if (colorPickedByUser == baseColorToMatchAndPlay) {
       pointsScored++;
+      print("Inside userPointsCounter:2");
       // todo: lock the container from further user clicks
     }
   }
